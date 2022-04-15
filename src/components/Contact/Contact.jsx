@@ -29,6 +29,20 @@ const Contact = () => {
       );
   };
 
+  const [returnedData, setReturnedData] = useState(['']);
+  const getData = async (url) => {
+    const newData = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then(res => res.json());
+    console.log(newData);
+    setReturnedData(newData.result);
+  };
+
   return (
     <div className="contact-form" id="contact">
       {/* left side copy and paste from work section */}
@@ -37,13 +51,9 @@ const Contact = () => {
           {/* darkMode */}
           <span style={{color: darkMode?'white': ''}}>Select the parameters</span>
           <span>for your search</span>
-          <spane>Available years: 2000-2015
+          <spane>Available years: 1990-2010
             <br />
-            Available tools: MRB, CTD, SUR
-            <br />
-            Available measurements: temp, salinity, pH, CO2, pressure, alkalinity, conductivity
-            <br /> 
-            Available types of queries: average, change
+            Available measurements: Temperature(F), Salinity(PPT), pH
           </spane>
 
           <div
@@ -55,15 +65,10 @@ const Contact = () => {
       {/* right side form */}
       <div className="c-right">
         <form ref={form} onSubmit={sendEmail}>
-          <input type="text" name="start_year" className="user"  placeholder="Start Year"/>
-          <input type="text" name="end_year" className="user" placeholder="End Year"/>
-          <input type="text" name="longitude" className="user" placeholder="Longitude"/>
-          <input type="text" name="latitude" className="user" placeholder="Latitude"/>
-          <input type="text" name="tool" className="user" placeholder="Tool"/>
+          <input type="number" name="start_year" className="user"  placeholder="Start Year"/>
           <input type="text" name="measurement" className="user" placeholder="Measurement"/>
-          <input type="text" name="type" className="user" placeholder="Type"/>
+          <button onClick = {() => getData()}>Submit</button>
           <input type="submit" value="Submit" className="button"/>
-          <span>{done && "Thank you"}</span>
           <div
             className="blur c-blur1"
             style={{ background: "var(--purple)" }}

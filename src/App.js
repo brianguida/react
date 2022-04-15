@@ -7,7 +7,10 @@ import Footer from "./components/Footer/Footer";
 import Contact from "./components/Contact/Contact";
 import { useContext } from "react";
 import { themeContext } from "./Context";
+import React, {useState} from 'react';
+
 function App() {
+
   const theme = useContext(themeContext);
   const darkMode = theme.state.darkMode;
   return (
